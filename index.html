@@ -9,12 +9,10 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Removed the fixed width: 300px; 
-       so the accordion can grow/shrink 
-       within its parent container */
+    /* Accordion can scale to fill its container */
     .accordion {
-      max-width: 100%; /* or set a specific max-width if desired */
-      margin: 0 auto; /* center it if it’s smaller than the container */
+      max-width: 100%;
+      margin: 0 auto;
     }
 
     .accordion-item {
@@ -27,7 +25,8 @@
       width: 100%;
       text-align: left;
       padding: 10px;
-      font-size: 16px;
+      /* Slightly bigger font for OnNetwork Filter */
+      font-size: 17px;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -76,8 +75,7 @@
       background-color: #f0f0f0;
     }
 
-    /* Example optional media query:
-       Adjust layout for smaller screens if needed */
+    /* Optional media query for smaller screens */
     @media (max-width: 480px) {
       .price-container {
         flex-direction: column;
@@ -91,6 +89,19 @@
 </head>
 <body>
   <div class="accordion">
+    <!-- NEW OnNetwork Filter Item -->
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">OnNetwork Filter <span>+</span></button>
+      <div class="accordion-content">
+        <!-- You can add checkboxes or other UI elements here -->
+        <label>
+          <input type="checkbox" name="onNetwork" value="true">
+          Show only mentors on my network
+        </label>
+      </div>
+    </div>
+
+    <!-- PRICE Item -->
     <div class="accordion-item">
       <button class="accordion-header" onclick="toggleAccordion(this)">Price <span>+</span></button>
       <div class="accordion-content">
@@ -101,6 +112,7 @@
         </div>
       </div>
     </div>
+
     <div class="accordion-item">
       <button class="accordion-header" onclick="toggleAccordion(this)">School <span>+</span></button>
       <div class="accordion-content">
@@ -180,12 +192,16 @@
 
   <script>
     function toggleAccordion(button) {
-      let content = button.nextElementSibling;
-      let isOpen = content.style.display === 'block';
+      const content = button.nextElementSibling;
+      const isOpen = (content.style.display === 'block');
 
       // Close all other accordions
-      document.querySelectorAll('.accordion-content').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.accordion-header span').forEach(span => span.textContent = '+');
+      document.querySelectorAll('.accordion-content').forEach(el => {
+        el.style.display = 'none';
+      });
+      document.querySelectorAll('.accordion-header span').forEach(span => {
+        span.textContent = '+';
+      });
 
       // If not already open, open the clicked one
       if (!isOpen) {
@@ -195,15 +211,16 @@
     }
 
     function filterMajors() {
-      let input = document.getElementById("majorSearch").value.toLowerCase();
-      let majorList = document.getElementById("majorList");
-      let majors = majorList.getElementsByClassName("major-item");
+      const input = document.getElementById("majorSearch").value.toLowerCase();
+      const majorList = document.getElementById("majorList");
+      const majors = majorList.getElementsByClassName("major-item");
       let hasMatch = false;
       
       for (let i = 0; i < majors.length; i++) {
-        let text = majors[i].textContent.toLowerCase();
-        majors[i].style.display = text.includes(input) ? "block" : "none";
-        if (text.includes(input)) hasMatch = true;
+        const text = majors[i].textContent.toLowerCase();
+        const isVisible = text.includes(input);
+        majors[i].style.display = isVisible ? "block" : "none";
+        if (isVisible) hasMatch = true;
       }
       
       // Show or hide the majorList based on results
@@ -212,6 +229,7 @@
   </script>
 </body>
 </html>
+
 
 
 
