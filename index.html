@@ -217,7 +217,8 @@
       
       for (let i = 0; i < majors.length; i++) {
         const text = majors[i].textContent.toLowerCase();
-        const isVisible = text.includes(input);
+        // Only display majors that start with the letters typed in the search bar
+        const isVisible = text.startsWith(input);
         majors[i].style.display = isVisible ? "block" : "none";
         if (isVisible) hasMatch = true;
       }
