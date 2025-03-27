@@ -25,7 +25,7 @@
       width: 100%;
       text-align: left;
       padding: 10px;
-      font-size: 16px; /* Reverted to original size */
+      font-size: 17px;
       cursor: pointer;
       display: flex;
       justify-content: space-between;
@@ -74,6 +74,7 @@
       background-color: #f0f0f0;
     }
 
+    /* Optional media query for smaller screens */
     @media (max-width: 480px) {
       .price-container {
         flex-direction: column;
@@ -87,7 +88,7 @@
 </head>
 <body>
   <div class="accordion">
-    <!-- PRICE Item (now first item) -->
+    <!-- PRICE Item -->
     <div class="accordion-item">
       <button class="accordion-header" onclick="toggleAccordion(this)">Price <span>+</span></button>
       <div class="accordion-content">
@@ -99,23 +100,101 @@
       </div>
     </div>
 
-    <!-- Rest of the original items remain unchanged -->
+    <!-- School Item -->
     <div class="accordion-item">
       <button class="accordion-header" onclick="toggleAccordion(this)">School <span>+</span></button>
       <div class="accordion-content">
-        <input type="checkbox"> USC<br>
-        <input type="checkbox"> UCLA<br>
+        <input type="checkbox"> UCSD<br>
       </div>
     </div>
-    <!-- ... (all other accordion items remain exactly the same) ... -->
+
+    <!-- Major Item -->
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">Major <span>+</span></button>
+      <div class="accordion-content">
+        <input type="text" class="search-bar" id="majorSearch" placeholder="Search for a major..." onkeyup="filterMajors()">
+        <div class="major-list" id="majorList">
+          <div class="major-item">Computer Science</div>
+          <div class="major-item">Business Administration</div>
+          <div class="major-item">Biology</div>
+          <div class="major-item">Mechanical Engineering</div>
+          <div class="major-item">Psychology</div>
+          <div class="major-item">Political Science</div>
+          <div class="major-item">Economics</div>
+          <div class="major-item">Mathematics</div>
+          <div class="major-item">Physics</div>
+          <div class="major-item">Chemistry</div>
+          <div class="major-item">English Literature</div>
+          <div class="major-item">History</div>
+          <div class="major-item">Philosophy</div>
+          <div class="major-item">Sociology</div>
+          <div class="major-item">Environmental Science</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Year Item -->
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">Year <span>+</span></button>
+      <div class="accordion-content">
+        <input type="checkbox"> Freshman<br>
+        <input type="checkbox"> Sophomore<br>
+        <input type="checkbox"> Junior<br>
+        <input type="checkbox"> Senior
+      </div>
+    </div>
+
+    <!-- Campus Life Item -->
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">Campus Life <span>+</span></button>
+      <div class="accordion-content">
+        <input type="checkbox"> Dorms & Housing<br>
+        <input type="checkbox"> Fraternities & Sororities<br>
+        <input type="checkbox"> Clubs & Activities<br>
+        <input type="checkbox"> What’s the Social Scene Like?
+      </div>
+    </div>
+
+    <!-- Application Process Item -->
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">Application Process <span>+</span></button>
+      <div class="accordion-content">
+        <input type="checkbox"> Essay Writing Tips<br>
+        <input type="checkbox"> SAT/ACT Tips<br>
+        <input type="checkbox"> Extracurriculars Help<br>
+        <input type="checkbox"> Navigating Deadlines
+      </div>
+    </div>
+
+    <!-- School Success Item -->
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">School Success <span>+</span></button>
+      <div class="accordion-content">
+        <input type="checkbox"> Picking the Right Major<br>
+        <input type="checkbox"> Study Tips for College<br>
+        <input type="checkbox"> Managing Your Time<br>
+        <input type="checkbox"> Adjusting to College Classes
+      </div>
+    </div>
+
+    <!-- Financial Advice Item -->
+    <div class="accordion-item">
+      <button class="accordion-header" onclick="toggleAccordion(this)">Financial Advice <span>+</span></button>
+      <div class="accordion-content">
+        <input type="checkbox"> Scholarships & Grants<br>
+        <input type="checkbox"> Budgeting as a Student<br>
+        <input type="checkbox"> FAFSA Tips & Tricks<br>
+        <input type="checkbox"> Part-Time Jobs vs. Work-Study
+      </div>
+    </div>
   </div>
 
-  <!-- JavaScript remains unchanged -->
   <script>
     function toggleAccordion(button) {
       const content = button.nextElementSibling;
       const isOpen = (content.style.display === 'block');
 
+      // Close all other accordions
       document.querySelectorAll('.accordion-content').forEach(el => {
         el.style.display = 'none';
       });
@@ -123,6 +202,7 @@
         span.textContent = '+';
       });
 
+      // If not already open, open the clicked one
       if (!isOpen) {
         content.style.display = 'block';
         button.querySelector('span').textContent = '-';
@@ -142,6 +222,7 @@
         if (isVisible) hasMatch = true;
       }
       
+      // Show or hide the majorList based on results
       majorList.style.display = hasMatch && input.length > 0 ? "block" : "none";
     }
   </script>
